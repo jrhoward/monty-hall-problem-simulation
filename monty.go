@@ -9,10 +9,10 @@ import (
 func main() {
 	rand.Seed(time.Now().UnixNano())
 	// Set up the experiment
-	dontchange := 0 // never change your choice win count
-	change := 0     // always change your choice win count
-	size := 3       // number of doors
-	runs := 1000000 // number of experiments
+	dontchange := 0.0 // never change your choice win count
+	change := 0.0     // always change your choice win count
+	size := 3         // number of doors
+	runs := 1000000   // number of experiments
 	var result []bool
 	for i := 0; i < runs; i++ {
 		result = run(size) // run the experiment
@@ -23,8 +23,8 @@ func main() {
 		}
 	}
 
-	fmt.Println("Don't change wins: ", float64(dontchange)/float64(runs)*100)
-	fmt.Println("Always change wins: ", float64(change)/float64(runs)*100)
+	fmt.Println("Don't change wins: ", dontchange/float64(runs)*100)
+	fmt.Println("Always change wins: ", change/float64(runs)*100)
 
 }
 
