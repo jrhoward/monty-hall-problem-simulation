@@ -8,7 +8,6 @@ import (
 
 func main() {
 	rand.Seed(time.Now().UnixNano())
-	// Set up the experiment
 	dontchange := 0.0 // never change your choice win count
 	change := 0.0     // always change your choice win count
 	size := 3         // number of doors
@@ -22,10 +21,8 @@ func main() {
 			change++ // How often changing my selection would result in a win
 		}
 	}
-
 	fmt.Println("Don't change wins: ", dontchange/float64(runs)*100)
 	fmt.Println("Always change wins: ", change/float64(runs)*100)
-
 }
 
 // random index to simulate a door selection
@@ -38,19 +35,13 @@ func selectDoor(size int) int {
 
 // run the experiment
 func run(size int) []bool {
-	doors := make([]bool, size)    // values default to false
-	doors[selectDoor(size)] = true // randomly set the door that has the prize
-
+	prize := selectDoor(size)     // randomly set the door that has the prize
 	selection := selectDoor(size) // Contestant selects a door
-
-	//Simulate the final options provided to the Contestant
+	//The final two options provided to the Contestant
 	final := make([]bool, 2)
-	// index 0 is the users origonal choice
-	final[0] = doors[selection]
-	// index 1 is the alternate choice presented which can only be
-	// false if the users selection is true or true if the users selection is false
-	// which is simulated by flipping the boolean value of users selection
-	final[1] = !doors[selection]
-
+	// index 0 is the users origonal choice which is a win if it is the prize
+	final[0] = prize == selection
+	// index 1 is the alternate choice presented
+	final[1] = !final[0]
 	return final
 }
